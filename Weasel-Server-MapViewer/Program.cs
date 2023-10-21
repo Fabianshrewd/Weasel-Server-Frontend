@@ -16,7 +16,7 @@ namespace Weasel_Server_MapViewer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form_Weasel_Server_Map_Viewer());
         }
     }
 }
