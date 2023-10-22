@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Weasel_Server_MapViewer
 {
-    internal class GETRequest
+    internal class GETRequestWeasel
     {
         private static string _Result;
 

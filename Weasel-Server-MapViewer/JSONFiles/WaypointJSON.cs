@@ -11,12 +11,5 @@ namespace Weasel_Server_MapViewer
         public int _PointID;
         public bool _Reserved;
         public string _ReservedColorName;
-
-        public WaypointJSON(int PointID1, bool Reserved1, string ReservedColorName1)
-        {
-            this._PointID = PointID1;
-            this._Reserved = Reserved1;
-            this._ReservedColorName = ReservedColorName1;
-        }
     }
 }

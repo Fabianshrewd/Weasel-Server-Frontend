@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GETRequest.cs" />
-    <Compile Include="WaypointJSON.cs" />
+    <Compile Include="GETRequestWeasel.cs" />
+    <Compile Include="GETRequestMap.cs" />
+    <Compile Include="JSONFiles\WaypointJSON.cs" />
+    <Compile Include="JSONFiles\WeaselJSON.cs" />
     <Compile Include="WeaselServer_MapViewer.cs">
       <SubType>Form</SubType>
     </Compile>

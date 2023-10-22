@@ -76,21 +76,30 @@ namespace Weasel_Server_MapViewer
         private void MapUpdater(object sender, EventArgs e)
         {
             //Get the request and check the map with it
-            GETRequest.Request("http://localhost:9999/map");
-            string request = GETRequest.Result;
+            GETRequestMap.Request("http://localhost:9999/map");
+            string request_map = GETRequestMap.Result;
+            GETRequestWeasel.Request("http://localhost:9999/weasel");
+            string request_weasel = GETRequestWeasel.Result;
 
-            if (request != null)
+            if (request_map != null && request_weasel != null)
             {
                 //Tell that it is online
                 label_Online.Text = "Online: true";
 
                 //Disassembly the JSON
-                List<WaypointJSON> waypoints = JsonConvert.DeserializeObject<List<WaypointJSON>>(request);
+                List<WaypointJSON> waypoints = JsonConvert.DeserializeObject<List<WaypointJSON>>(request_map);
+                List<WeaselJSON> weasels = JsonConvert.DeserializeObject<List<WeaselJSON>>(request_weasel);
 
-                //Check with every label if the status is still correct
+                //Check with every label if the status is still correct -> Map
                 for (int i = 0; i < waypoints.Count; i++)
                 {
-                    CheckWaypoint(waypoints[i]);
+                    CheckWaypointMap(waypoints[i]);
+                }
+
+                //Check with every label if the status is still correct -> Weasel
+                for (int i = 0; i < weasels.Count; i++)
+                {
+                    CheckWaypointWeasel(weasels);
                 }
             }
             else
@@ -99,13 +108,41 @@ namespace Weasel_Server_MapViewer
             }
         }
 
-        private void CheckWaypoint(WaypointJSON waypoint)
+        private void CheckWaypointMap(WaypointJSON waypoint)
         {
             for(int i = 0; i < _Labels_Waypoints.Count; i++)
             {
                 if(waypoint._PointID == Int32.Parse(_Labels_Waypoints[i].Text))
                 {
                     _Labels_Waypoints[i].BackColor = Color.FromName(waypoint._ReservedColorName);
+                }
+            }
+        }
+
+        private void CheckWaypointWeasel(List<WeaselJSON> weasels)
+        {
+            for(int i = 0; i < _Labels_Waypoints.Count; i++)
+            {
+                bool WeaselOnPosition = false;
+                for(int u = 0; u < weasels.Count; u++)
+                {
+                    if (weasels[u]._LastPosition == Int32.Parse(_Labels_Waypoints[i].Text))
+                    {
+                        WeaselOnPosition = true;
+                        if (weasels[u]._HasBox == false)
+                        {
+                            _Labels_Waypoints[i].ForeColor = Color.FromName("Green");
+                        }
+                        else
+                        {
+                            _Labels_Waypoints[i].ForeColor = Color.FromName("Red");
+                        }
+                    }
+                }
+
+                if (WeaselOnPosition == false)
+                {
+                    _Labels_Waypoints[i].ForeColor = Color.FromName("Black");
                 }
             }
         }
