@@ -17,7 +17,6 @@ namespace Weasel_Server_MapViewer
         public int _LastPosition;
         public int _HomePosition;
         public string _Color;
-        public int _ColorNumber;
         public string _Destinations;
     }
 }
